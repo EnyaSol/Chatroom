@@ -1,6 +1,6 @@
 
 $(document).ready( function(){
-    let socket = io.connect('https://my-chatroom-backend-es.herokuapp.com:5000');
+    let socket = io.connect('https://my-chatroom-backend-es.herokuapp.com:33507');
     let textbox = $('#my-message');
 
     console.log("Checking if sockets are connected!")
