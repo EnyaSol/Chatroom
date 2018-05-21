@@ -33,14 +33,31 @@
 
 </div>
 
-<ul id="messages"></ul>
-<input type="text" id="my-message">
-<button id="send-button">Send</button>
+<div class="container">
+  <div class="jumbotron">
+    <h1>Python Websockets Chat Demo</h1>
+    <p>This is a Python WebSockets Chat Demo. The code lives <a href="https://github.com/heroku-examples/">on GitHub</a>. You can find the full guide <a href="https://devcenter.heroku.com/articles/python-websockets">on Heroku DevCenter</a>.</p>
+  </div>
+  <form id="input-form" class="form-inline">
+    <div class="form-group">
+      <input id="input-handle" type="text" class="form-control" placeholder="Enter handle" autofocus />
+    </div>
+    <div class="form-group">
+      <input id="input-text" type="text" class="form-control" placeholder="Enter chat text here!" autofocus />
+    </div>
+    <button class="btn btn-primary" type="submit">Send</button>
+  </form>
+  <div class="page-header">
+    <h1>Chat</h1>
+  </div>
+  <div id="chat-text">
+  </div>
+</div>
 <!-- Latest compiled and minified JavaScript -->
 
 
 
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reconnecting-websocket/1.0.0/reconnecting-websocket.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <script type="text/javascript" src="utils/client.js"></script>
 <!--

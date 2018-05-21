@@ -1,22 +1,25 @@
 
-$(document).ready( function(){
-    let socket = io.connect('https://my-chatroom-backend-es.herokuapp.com:33507');
-    let textbox = $('#my-message');
+if(window.location.protocol == "https:"){
+    var ws_scheme = "wss://"
+} else {
+    var ws_scheme = "ws://"
+}
 
-    console.log("Checking if sockets are connected!")
+var inbox = new ReconnectingWebSocket(ws_scheme + location.host + "/receive");
+var outbox = new ReconnectingWebSocket(ws_scheme + location.host + "/submit");
 
-    socket.on('connect', function(){
-        socket.send('User has connected! ', io.connected);
-    });
+inbox.onmessage = function(message){
+    var data = JSON.parse(message.data)
+    $("#chat-text").append("<div class='panel panel-default'><div class='panel-heading'>" + $('<span/>').text(data.handle).html() + "</div><div class='panel-body'>" + $('<span/>').text(data.text).html() + "</div></div>");
+    $("#chat-text").stop().animate({
+        scrollTop: $('#chat-text')[0].scrollHeight
+    }, 800);
+}
 
-    socket.on('message', function(msg){
-        $("#messages").append('<li>' + msg + '<li>');
-        console.log('Received message');
-    });
-
-    $('#send-button').on('click', function(){
-
-        socket.send(textbox.val());
-        textbox.val('');
-    })
+$("#input-form").on("submit", function(event) {
+    event.preventDefault();
+    var handle = $("#input-handle")[0].value;
+    var text   = $("#input-text")[0].value;
+    outbox.send(JSON.stringify({ handle: handle, text: text }));
+    $("#input-text")[0].value = "";
 });
