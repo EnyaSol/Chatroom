@@ -1,7 +1,7 @@
 
 $(document).ready( function(){
-    let socket = io.connect('http://127.0.0.1:5000');
-    let textbox = $('#my-message');
+    var socket = io.connect('http://127.0.0.1:5000');
+    var textbox = $('#my-message');
 
     socket.on('connect', function(){
         socket.send('User has connect!');
