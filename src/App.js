@@ -1,18 +1,37 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import ChatBox from "./components/chatbox/ChatBox";
+import io from 'socket.io-client'
 
 class App extends Component {
+    constructor(props){
+        super(props)
+        this.state = {
+            messages: []
+        }
+        var socket = io('http://127.0.0.1:5000');
+
+        socket.on('connect', function(){
+            console.log("CONNECTED TO SERVER!")
+        })
+
+        socket.on('message', function(msg){
+            // $("#messages").append('<li>' + msg + '<li>');
+            console.log('Received message ' + msg);
+        });
+
+        // socket.send(textbox.val());
+        // textbox.val('');
+    }
+
+
   render() {
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
+          <h1 className="App-title">Aaron's Chat App</h1>
         </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+          <ChatBox messages={this.state.messages}/>
       </div>
     );
   }
